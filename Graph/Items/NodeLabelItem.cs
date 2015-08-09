@@ -31,6 +31,8 @@ namespace Graph.Items
 {
 	public sealed class NodeLabelItem : NodeItem
 	{
+        public event EventHandler<NodeItemEventArgs> Clicked;
+
         public NodeLabelItem(string text, NodeIOMode mode) :
             base(mode)
         {
@@ -56,6 +58,13 @@ namespace Graph.Items
 
 		internal SizeF TextSize;
 
+        public override bool OnClick()
+        {
+            base.OnClick();
+            if (Clicked != null)
+                Clicked(this, new NodeItemEventArgs(this));
+            return true;
+        }
 
 		internal override SizeF Measure(Graphics graphics)
 		{

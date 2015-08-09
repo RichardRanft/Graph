@@ -55,7 +55,7 @@
             // 
             this.showLabelsCheckBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.showLabelsCheckBox.AutoSize = true;
-            this.showLabelsCheckBox.Location = new System.Drawing.Point(12, 521);
+            this.showLabelsCheckBox.Location = new System.Drawing.Point(12, 432);
             this.showLabelsCheckBox.Name = "showLabelsCheckBox";
             this.showLabelsCheckBox.Size = new System.Drawing.Size(87, 17);
             this.showLabelsCheckBox.TabIndex = 2;
@@ -121,7 +121,7 @@
             this.graphControl.Location = new System.Drawing.Point(108, 12);
             this.graphControl.Name = "graphControl";
             this.graphControl.ShowLabels = false;
-            this.graphControl.Size = new System.Drawing.Size(1180, 526);
+            this.graphControl.Size = new System.Drawing.Size(664, 437);
             this.graphControl.SmallGridStep = 16F;
             this.graphControl.SmallStepGridColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
             this.graphControl.TabIndex = 0;
@@ -132,7 +132,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
-            this.ClientSize = new System.Drawing.Size(1300, 550);
+            this.ClientSize = new System.Drawing.Size(784, 461);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -140,8 +140,9 @@
             this.Controls.Add(this.label1);
             this.Controls.Add(this.graphControl);
             this.DoubleBuffered = true;
+            this.MinimumSize = new System.Drawing.Size(800, 500);
             this.Name = "ExampleForm";
-            this.Text = "Form1";
+            this.Text = "Graph Demo";
             this.nodeMenu.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();

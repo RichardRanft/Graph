@@ -31,7 +31,9 @@ namespace Graph.Items
 {
 	internal sealed class NodeTitleItem : NodeItem
 	{
-		#region Text
+        public event EventHandler<NodeItemEventArgs> Clicked;
+        
+        #region Text
 		string			internalTitle = string.Empty;
 		public string	Title		
 		{
@@ -49,7 +51,15 @@ namespace Graph.Items
 		internal void ForceResize() { TextSize = Size.Empty; }
 		internal SizeF				TextSize;
 
-		internal override SizeF Measure(Graphics graphics)
+        public override bool OnClick()
+        {
+            base.OnClick();
+            if (Clicked != null)
+                Clicked(this, new NodeItemEventArgs(this));
+            return true;
+        }
+
+        internal override SizeF Measure(Graphics graphics)
 		{
 			if (!string.IsNullOrWhiteSpace(this.Title))
 			{
