@@ -34,14 +34,14 @@ namespace Graph.Items
 	{
 		public event EventHandler<NodeItemEventArgs> Clicked;
 
-		public NodeColorItem(string text, Color color, bool inputEnabled, bool outputEnabled) :
-			base(inputEnabled, outputEnabled)
-		{
-			this.Text = text;
-			this.Color = color;
-		}
-
-		public Color Color { get; set; }
+        public NodeColorItem(string text, Color color, NodeIOMode mode) :
+            base(mode)
+        {
+            this.Text = text;
+            this.Color = color;
+        }
+        
+        public Color Color { get; set; }
 
 		#region Text
 		string internalText = string.Empty;

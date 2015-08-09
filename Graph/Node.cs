@@ -30,7 +30,15 @@ using Graph.Items;
 
 namespace Graph
 {
-	public sealed class NodeEventArgs : EventArgs
+    public enum NodeIOMode
+    {
+        None,
+        Input,
+        Output,
+        InOut
+    }
+    
+    public sealed class NodeEventArgs : EventArgs
 	{
 		public NodeEventArgs(Node node) { Node = node; }
 		public Node Node { get; private set; }

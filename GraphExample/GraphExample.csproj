@@ -34,6 +34,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Graph">
+      <HintPath>..\Graph\bin\Debug\Graph.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Core" />
@@ -80,12 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\me_square_small.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Graph\Graph.csproj">
-      <Project>{E4CC63D8-127D-4BC9-80E0-CCB3E9DA06DC}</Project>
-      <Name>Graph</Name>
-    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

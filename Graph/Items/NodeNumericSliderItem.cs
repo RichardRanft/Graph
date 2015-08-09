@@ -41,7 +41,7 @@ namespace Graph.Items
 		/// <param name="defaultValue">The value the slider should start with.</param>
 		/// <param name="inputEnabled">Does the item accept an input to be connected?</param>
 		/// <param name="outputEnabled">Does the item accept an output to be connected?</param>
-		public NodeNumericSliderItem( string text, float sliderSize, float textSize, float minValue, float maxValue, float defaultValue, bool inputEnabled, bool outputEnabled ) : base( text, sliderSize, textSize, minValue, maxValue, defaultValue, inputEnabled, outputEnabled ) {}
+		public NodeNumericSliderItem( string text, float sliderSize, float textSize, float minValue, float maxValue, float defaultValue, NodeIOMode mode ) : base( text, sliderSize, textSize, minValue, maxValue, defaultValue, mode ) {}
 
 		/// <summary>
 		/// Render the slider.

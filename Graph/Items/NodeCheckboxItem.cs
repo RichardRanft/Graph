@@ -32,8 +32,8 @@ namespace Graph.Items
 {
 	public sealed class NodeCheckboxItem : NodeItem
 	{
-		public NodeCheckboxItem(string text, bool inputEnabled, bool outputEnabled) :
-			base(inputEnabled, outputEnabled)
+		public NodeCheckboxItem(string text, NodeIOMode mode) :
+			base(mode)
 		{
 			this.Text = text;
 		}

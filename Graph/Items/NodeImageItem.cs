@@ -33,14 +33,14 @@ namespace Graph.Items
 	{
 		public event EventHandler<NodeItemEventArgs> Clicked;
 
-		public NodeImageItem(Image image, bool inputEnabled = false, bool outputEnabled = false) :
-			base(inputEnabled, outputEnabled)
+		public NodeImageItem(Image image, NodeIOMode mode = NodeIOMode.None) :
+			base(mode)
 		{
 			this.Image = image;
 		}
 
-		public NodeImageItem(Image image, int width, int height, bool inputEnabled = false, bool outputEnabled = false) :
-			base(inputEnabled, outputEnabled)
+		public NodeImageItem(Image image, int width, int height, NodeIOMode mode = NodeIOMode.None) :
+			base(mode)
 		{
 			this.Width = width;
 			this.Height = height;

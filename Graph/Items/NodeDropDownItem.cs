@@ -42,14 +42,14 @@ namespace Graph.Items
 	{
 		public event EventHandler<AcceptNodeSelectionChangedEventArgs> SelectionChanged;
 
-		public NodeDropDownItem(string[] items, int selectedIndex, bool inputEnabled, bool outputEnabled) :
-			base(inputEnabled, outputEnabled)
-		{
-			this.Items = items.ToArray();
-			this.SelectedIndex = selectedIndex;
-		}
+        public NodeDropDownItem(string[] items, int selectedIndex, NodeIOMode mode) :
+            base(mode)
+        {
+            this.Items = items.ToArray();
+            this.SelectedIndex = selectedIndex;
+        }
 
-		#region Name
+        #region Name
 		public string Name
 		{
 			get;

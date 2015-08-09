@@ -31,14 +31,13 @@ namespace Graph.Items
 {
 	public sealed class NodeLabelItem : NodeItem
 	{
-		public NodeLabelItem(string text, bool inputEnabled, bool outputEnabled) :
-			base(inputEnabled, outputEnabled)
-		{
-			this.Text = text;
-		}
-
-		public NodeLabelItem(string text) :
-			this(text, false, false) { }
+        public NodeLabelItem(string text, NodeIOMode mode) :
+            base(mode)
+        {
+            this.Text = text;
+        }
+        public NodeLabelItem(string text) :
+			this(text, NodeIOMode.None) { }
 
 		#region Text
 		string internalText = string.Empty;

@@ -23,18 +23,18 @@ namespace GraphNodes
 
 			var someNode = new Node("My Title");
 			someNode.Location = new Point(500, 100);
-			var check1Item = new NodeCheckboxItem("Check 1", true, false) { Tag = 31337 };
+			var check1Item = new NodeCheckboxItem("Check 1", NodeIOMode.Input) { Tag = TagType.COLOR };
 			someNode.AddItem(check1Item);
-			someNode.AddItem(new NodeCheckboxItem("Check 2", true, false) { Tag = 42f });
+			someNode.AddItem(new NodeCheckboxItem("Check 2", NodeIOMode.Input) { Tag = TagType.TEXTURE });
 			
 			graphControl.AddNode(someNode);
 
 			var colorNode = new Node("Color");
 			colorNode.Location = new Point(200, 50);
-			var redChannel		= new NodeSliderItem("R", 64.0f, 16.0f, 0, 1.0f, 0.0f, false, false);
-			var greenChannel	= new NodeSliderItem("G", 64.0f, 16.0f, 0, 1.0f, 0.0f, false, false);
-			var blueChannel		= new NodeSliderItem("B", 64.0f, 16.0f, 0, 1.0f, 0.0f, false, false);
-			var colorItem		= new NodeColorItem("Color", Color.Black, false, true) { Tag = 1337 };
+			var redChannel		= new NodeSliderItem("R", 64.0f, 16.0f, 0, 1.0f, 0.0f);
+			var greenChannel	= new NodeSliderItem("G", 64.0f, 16.0f, 0, 1.0f, 0.0f);
+			var blueChannel		= new NodeSliderItem("B", 64.0f, 16.0f, 0, 1.0f, 0.0f);
+			var colorItem		= new NodeColorItem("Color", Color.Black, NodeIOMode.Output) { Tag = TagType.COLOR };
 
 			EventHandler<NodeItemEventArgs> channelChangedDelegate = delegate(object sender, NodeItemEventArgs args)
 			{
@@ -58,7 +58,7 @@ namespace GraphNodes
 
 			var textureNode = new Node("Texture");
 			textureNode.Location = new Point(300, 150);
-			var imageItem = new NodeImageItem(Properties.Resources.example, 64, 64, false, true) { Tag = 1000f };
+			var imageItem = new NodeImageItem(Properties.Resources.example, 64, 64, NodeIOMode.Output) { Tag = TagType.TEXTURE };
 			imageItem.Clicked += new EventHandler<NodeItemEventArgs>(OnImgClicked);
 			textureNode.AddItem(imageItem);
 			graphControl.AddNode(textureNode);
@@ -137,11 +137,11 @@ namespace GraphNodes
 		private void SomeNode_MouseDown(object sender, MouseEventArgs e)
 		{
 			var node = new Node("Some node");
-			node.AddItem(new NodeLabelItem("Entry 1", true, false));
-			node.AddItem(new NodeLabelItem("Entry 2", true, false));
-			node.AddItem(new NodeLabelItem("Entry 3", false, true));
-			node.AddItem(new NodeTextBoxItem("TEXTTEXT", false, true));
-			node.AddItem(new NodeDropDownItem(new string[] { "1", "2", "3", "4" }, 0, false, false));
+            node.AddItem(new NodeLabelItem("Entry 1", NodeIOMode.Input) { Tag = TagType.COLOR });
+            node.AddItem(new NodeLabelItem("Entry 2", NodeIOMode.Input) { Tag = TagType.TEXTURE });
+            node.AddItem(new NodeLabelItem("Entry 3", NodeIOMode.Input) { Tag = TagType.TEXT });
+            node.AddItem(new NodeTextBoxItem("TEXTTEXT", NodeIOMode.Output) { Tag = TagType.TEXT });
+            node.AddItem(new NodeDropDownItem(new string[] { "1", "2", "3", "4" }, 0, NodeIOMode.None) { Tag = TagType.TEXT });
 			this.DoDragDrop(node, DragDropEffects.Copy);
 		}
 
@@ -149,7 +149,7 @@ namespace GraphNodes
 		{
 			var textureNode = new Node("Texture");
 			textureNode.Location = new Point(300, 150);
-			var imageItem = new NodeImageItem(Properties.Resources.example, 64, 64, false, true);
+            var imageItem = new NodeImageItem(Properties.Resources.example, 64, 64, NodeIOMode.Output) { Tag = TagType.TEXTURE };
 			imageItem.Clicked += new EventHandler<NodeItemEventArgs>(OnImgClicked);
 			textureNode.AddItem(imageItem);
 			this.DoDragDrop(textureNode, DragDropEffects.Copy);
@@ -159,10 +159,10 @@ namespace GraphNodes
 		{
 			var colorNode = new Node("Color");
 			colorNode.Location = new Point(200, 50);
-			var redChannel = new NodeSliderItem("R", 64.0f, 16.0f, 0, 1.0f, 0.0f, false, false);
-			var greenChannel = new NodeSliderItem("G", 64.0f, 16.0f, 0, 1.0f, 0.0f, false, false);
-			var blueChannel = new NodeSliderItem("B", 64.0f, 16.0f, 0, 1.0f, 0.0f, false, false);
-			var colorItem = new NodeColorItem("Color", Color.Black, false, true);
+			var redChannel = new NodeSliderItem("R", 64.0f, 16.0f, 0, 1.0f, 0.0f);
+            var greenChannel = new NodeSliderItem("G", 64.0f, 16.0f, 0, 1.0f, 0.0f);
+            var blueChannel = new NodeSliderItem("B", 64.0f, 16.0f, 0, 1.0f, 0.0f);
+            var colorItem = new NodeColorItem("Color", Color.Black, NodeIOMode.Output) { Tag = TagType.COLOR };
 
 			EventHandler<NodeItemEventArgs> channelChangedDelegate = delegate(object s, NodeItemEventArgs args)
 			{
@@ -191,4 +191,15 @@ namespace GraphNodes
 			graphControl.ShowLabels = showLabelsCheckBox.Checked;
 		}
 	}
+
+    public static class TagType
+    {
+        public static TextureClass TEXTURE = new TextureClass();
+        public static ColorClass COLOR = new ColorClass();
+        public static TextClass TEXT = new TextClass();
+    }
+
+    public class TextureClass : object { }
+    public class ColorClass : object { }
+    public class TextClass : object { }
 }

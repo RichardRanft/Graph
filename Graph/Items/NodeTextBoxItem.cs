@@ -42,14 +42,14 @@ namespace Graph.Items
 	{
 		public event EventHandler<AcceptNodeTextChangedEventArgs> TextChanged;
 
-		public NodeTextBoxItem(string text, bool inputEnabled, bool outputEnabled) :
-			base(inputEnabled, outputEnabled)
-		{
-			this.Text = text;
-		}
-
-		public NodeTextBoxItem(string text) :
-			this(text, false, false)
+        public NodeTextBoxItem(string text, NodeIOMode mode) :
+            base(mode)
+        {
+            this.Text = text;
+        }
+        
+        public NodeTextBoxItem(string text) :
+			this(text, NodeIOMode.None)
 		{
 			this.Text = text;
 		}

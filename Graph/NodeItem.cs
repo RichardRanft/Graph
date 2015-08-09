@@ -42,11 +42,28 @@ namespace Graph
 			this.Output		= new NodeOutputConnector(this, false);
 		}
 
-		public NodeItem(bool enableInput, bool enableOutput)
-		{
-			this.Input		= new NodeInputConnector(this, enableInput);
-			this.Output		= new NodeOutputConnector(this, enableOutput);
-		}
+        public NodeItem(NodeIOMode mode)
+        {
+            switch(mode)
+            {
+                case NodeIOMode.None:
+                    this.Input = new NodeInputConnector(this, false);
+                    this.Output = new NodeOutputConnector(this, false);
+                    break;
+                case NodeIOMode.Input:
+                    this.Input = new NodeInputConnector(this, true);
+                    this.Output = new NodeOutputConnector(this, false);
+                    break;
+                case NodeIOMode.Output:
+                    this.Input = new NodeInputConnector(this, false);
+                    this.Output = new NodeOutputConnector(this, true);
+                    break;
+                case NodeIOMode.InOut:
+                    this.Input = new NodeInputConnector(this, true);
+                    this.Output = new NodeOutputConnector(this, true);
+                    break;
+            }
+        }
 
 		public Node					Node			{ get; internal set; }
 		public object				Tag				{ get; set; }

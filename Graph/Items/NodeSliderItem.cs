@@ -35,18 +35,18 @@ namespace Graph.Items
 		public event EventHandler<NodeItemEventArgs> Clicked;
 		public event EventHandler<NodeItemEventArgs> ValueChanged;
 
-		public NodeSliderItem(string text, float sliderSize, float textSize, float minValue, float maxValue, float defaultValue, bool inputEnabled, bool outputEnabled) :
-			base(inputEnabled, outputEnabled)
-		{
-			this.Text = text;
-			this.MinimumSliderSize = sliderSize;
-			this.TextSize = textSize;
-			this.MinValue = Math.Min(minValue, maxValue);
-			this.MaxValue = Math.Max(minValue, maxValue);
-			this.Value = defaultValue;
-		}
+        public NodeSliderItem(string text, float sliderSize, float textSize, float minValue, float maxValue, float defaultValue, NodeIOMode mode = NodeIOMode.None) :
+            base(mode)
+        {
+            this.Text = text;
+            this.MinimumSliderSize = sliderSize;
+            this.TextSize = textSize;
+            this.MinValue = Math.Min(minValue, maxValue);
+            this.MaxValue = Math.Max(minValue, maxValue);
+            this.Value = defaultValue;
+        }
 
-		#region Text
+        #region Text
 		string internalText = string.Empty;
 		public string Text
 		{
