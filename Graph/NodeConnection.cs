@@ -32,8 +32,8 @@ namespace Graph
 {
 	public sealed class NodeConnectionEventArgs : EventArgs
 	{
-		public NodeConnectionEventArgs(NodeConnection connection) { Connection = connection; From = connection.From; To = connection.To; }
-		public NodeConnectionEventArgs(NodeConnector from, NodeConnector to, NodeConnection connection) { Connection = connection; From = from; To = to; }
+        public NodeConnectionEventArgs(NodeConnection connection) { Connection = connection; From = connection.From; To = connection.To; FromItem = connection.From.Item.Name; ToItem = connection.To.Item.Name; }
+        public NodeConnectionEventArgs(NodeConnector from, NodeConnector to, NodeConnection connection) { Connection = connection; From = from; To = to; FromItem = from.Item.Name; ToItem = to.Item.Name; }
 		public NodeConnector From { get; set; }
 		public NodeConnector To { get; set; }
         public String FromItem { get; set; }

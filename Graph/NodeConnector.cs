@@ -49,6 +49,8 @@ namespace Graph
 				var parentNode = Node;
 				if (parentNode == null)
 					yield break;
+                if (parentNode.connections.Count == 0)
+                    yield break;
 				foreach (var connection in parentNode.connections)
 				{
 					if (connection.From == this) yield return connection;
@@ -67,6 +69,8 @@ namespace Graph
 				var parentNode = Node;
 				if (parentNode == null)
 					return false;
+                if (parentNode.connections.Count == 0)
+                    return false;
 				foreach (var connection in parentNode.connections)
 				{
 					if (connection.From == this) return true;
