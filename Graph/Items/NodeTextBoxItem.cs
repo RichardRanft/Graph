@@ -54,14 +54,6 @@ namespace Graph.Items
 			this.Text = text;
 		}
 
-		#region Name
-		public string Name
-		{
-			get;
-			set;
-		}
-		#endregion
-
 		#region Text
 		string internalText = string.Empty;
 		public string Text

@@ -49,14 +49,6 @@ namespace Graph.Items
             this.SelectedIndex = selectedIndex;
         }
 
-        #region Name
-		public string Name
-		{
-			get;
-			set;
-		}
-		#endregion
-
 		#region SelectedIndex
 		private int internalSelectedIndex = -1;
 		public int SelectedIndex

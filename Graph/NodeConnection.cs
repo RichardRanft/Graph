@@ -36,6 +36,8 @@ namespace Graph
 		public NodeConnectionEventArgs(NodeConnector from, NodeConnector to, NodeConnection connection) { Connection = connection; From = from; To = to; }
 		public NodeConnector From { get; set; }
 		public NodeConnector To { get; set; }
+        public String FromItem { get; set; }
+        public String ToItem { get; set; }
 		public NodeConnection Connection { get; private set; }
 	}
 
@@ -50,10 +52,12 @@ namespace Graph
 	{
 		public event EventHandler<NodeConnectionEventArgs>	DoubleClick;
 
-		public NodeConnector	From	{ get; set; }
-		public NodeConnector	To		{ get; set; }
-		public string			Name	{ get; set; }
-		public object			Tag		{ get; set; }
+		public NodeConnector	From	    { get; set; }
+		public NodeConnector	To		    { get; set; }
+        public String           FromItem    { get; set; }
+        public String           ToItem      { get; set; }
+		public string			Name	    { get; set; }
+		public object			Tag		    { get; set; }
 		
 		internal RenderState	state;
 		internal RectangleF		bounds;

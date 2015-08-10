@@ -67,6 +67,7 @@ namespace Graph
 
 		public Node					Node			{ get; internal set; }
 		public object				Tag				{ get; set; }
+        public String               Name            { get; set; }
 
 		public NodeConnector		Input			{ get; private set; }
 		public NodeConnector		Output			{ get; private set; }
