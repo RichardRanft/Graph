@@ -40,22 +40,16 @@ namespace Graph
 		public bool				Enabled			{ get; internal set; }
 		
 		// Iterates through all the connectors connected to this connector
-		public IEnumerable<NodeConnection> Connectors
+		public List<NodeConnection> Connectors
 		{
 			get
 			{
 				if (!Enabled)
-					yield break;
+					return null;
 				var parentNode = Node;
-				if (parentNode == null)
-					yield break;
-                if (parentNode.connections.Count == 0)
-                    yield break;
-				foreach (var connection in parentNode.connections)
-				{
-					if (connection.From == this) yield return connection;
-					if (connection.To   == this) yield return connection;
-				}
+                if (parentNode == null)
+                    return null;
+                return parentNode.Connections;
 			}
 		}
 		

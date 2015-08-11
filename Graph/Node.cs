@@ -94,8 +94,8 @@ namespace Graph
 		public PointF			Location		{ get; set; }
 		public object			Tag				{ get; set; }
 
-		public IEnumerable<NodeConnection>	Connections { get { return connections; } }
-		public IEnumerable<NodeItem>		Items		{ get { return nodeItems; } }
+		public List<NodeConnection>	Connections { get { return connections; } }
+		public List<NodeItem>		Items		{ get { return nodeItems; } }
 		
 		internal RectangleF		bounds;
 		internal RectangleF		inputBounds;
