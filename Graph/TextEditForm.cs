@@ -9,7 +9,7 @@ using System.Windows.Forms;
 
 namespace Graph
 {
-	sealed partial class TextEditForm : Form
+	public sealed partial class TextEditForm : Form
 	{
 		public TextEditForm()
 		{

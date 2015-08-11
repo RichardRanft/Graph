@@ -72,16 +72,16 @@ namespace Graph
 		public NodeConnector		Input			{ get; private set; }
 		public NodeConnector		Output			{ get; private set; }
 
-		internal RectangleF			bounds;
-		internal RenderState		state			= RenderState.None;
+		public RectangleF			bounds;
+		public RenderState		state			= RenderState.None;
 
 		public virtual bool			OnClick()					 { return false; }
 		public virtual bool			OnDoubleClick()				 { return false; }
 		public virtual bool			OnStartDrag(PointF location, out PointF original_location) { original_location = Point.Empty; return false; }
 		public virtual bool			OnDrag(PointF location)		 { return false; }		
 		public virtual bool			OnEndDrag() 				 { return false; }
-		internal abstract SizeF		Measure(Graphics context);
-		internal abstract void		Render(Graphics graphics, SizeF minimumSize, PointF position);
+        public abstract SizeF Measure(Graphics context);
+        public abstract void Render(Graphics graphics, SizeF minimumSize, PointF position);
 
 		public ElementType ElementType { get { return ElementType.NodeItem; } }
 	}

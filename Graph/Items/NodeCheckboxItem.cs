@@ -79,7 +79,7 @@ namespace Graph.Items
 		internal SizeF TextSize;
 
 
-		internal override SizeF Measure(Graphics graphics)
+        public override SizeF Measure(Graphics graphics)
 		{
 			if (!string.IsNullOrWhiteSpace(this.Text))
 			{
@@ -100,7 +100,7 @@ namespace Graph.Items
 			}
 		}
 
-		internal override void Render(Graphics graphics, SizeF minimumSize, PointF location)
+        public override void Render(Graphics graphics, SizeF minimumSize, PointF location)
 		{
 			var size = Measure(graphics);
 			size.Width  = Math.Max(minimumSize.Width, size.Width);

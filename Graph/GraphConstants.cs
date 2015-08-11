@@ -42,7 +42,7 @@ namespace Graph
 		public const int HorizontalSpacing		= 2;
 		public const int NodeExtraWidth			= ((int)GraphConstants.ConnectorSize + (int)GraphConstants.HorizontalSpacing) * 2;
 		
-		internal const TextFormatFlags TitleTextFlags	=	TextFormatFlags.ExternalLeading |
+		public const TextFormatFlags TitleTextFlags	=	TextFormatFlags.ExternalLeading |
 															TextFormatFlags.GlyphOverhangPadding |
 															TextFormatFlags.HorizontalCenter |
 															TextFormatFlags.NoClipping |
@@ -50,7 +50,7 @@ namespace Graph
 															TextFormatFlags.NoPrefix |
 															TextFormatFlags.VerticalCenter;
 
-		internal const TextFormatFlags CenterTextFlags	=	TextFormatFlags.ExternalLeading |
+		public const TextFormatFlags CenterTextFlags	=	TextFormatFlags.ExternalLeading |
 															TextFormatFlags.GlyphOverhangPadding |
 															TextFormatFlags.HorizontalCenter |
 															TextFormatFlags.NoClipping |
@@ -58,7 +58,7 @@ namespace Graph
 															TextFormatFlags.NoPrefix |
 															TextFormatFlags.VerticalCenter;
 
-		internal const TextFormatFlags LeftTextFlags	=	TextFormatFlags.ExternalLeading |
+		public const TextFormatFlags LeftTextFlags	=	TextFormatFlags.ExternalLeading |
 															TextFormatFlags.GlyphOverhangPadding |
 															TextFormatFlags.Left |
 															TextFormatFlags.NoClipping |
@@ -66,7 +66,7 @@ namespace Graph
 															TextFormatFlags.NoPrefix |
 															TextFormatFlags.VerticalCenter;
 
-		internal const TextFormatFlags RightTextFlags	=	TextFormatFlags.ExternalLeading |
+		public const TextFormatFlags RightTextFlags	=	TextFormatFlags.ExternalLeading |
 															TextFormatFlags.GlyphOverhangPadding |
 															TextFormatFlags.Right |
 															TextFormatFlags.NoClipping |
@@ -74,14 +74,14 @@ namespace Graph
 															TextFormatFlags.NoPrefix |
 															TextFormatFlags.VerticalCenter;
 
-		internal static readonly StringFormat TitleStringFormat;
-		internal static readonly StringFormat CenterTextStringFormat;
-		internal static readonly StringFormat LeftTextStringFormat;
-		internal static readonly StringFormat RightTextStringFormat;
-		internal static readonly StringFormat TitleMeasureStringFormat;
-		internal static readonly StringFormat CenterMeasureTextStringFormat;
-		internal static readonly StringFormat LeftMeasureTextStringFormat;
-		internal static readonly StringFormat RightMeasureTextStringFormat;
+		public static readonly StringFormat TitleStringFormat;
+		public static readonly StringFormat CenterTextStringFormat;
+		public static readonly StringFormat LeftTextStringFormat;
+		public static readonly StringFormat RightTextStringFormat;
+		public static readonly StringFormat TitleMeasureStringFormat;
+		public static readonly StringFormat CenterMeasureTextStringFormat;
+		public static readonly StringFormat LeftMeasureTextStringFormat;
+		public static readonly StringFormat RightMeasureTextStringFormat;
 
 		static GraphConstants()
 		{
