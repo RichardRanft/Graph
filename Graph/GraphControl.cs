@@ -475,7 +475,10 @@ namespace Graph
 		PointF					translation = new PointF();
 		float					zoom = 1.0f;
 
-		
+        public Color SelectBandColor = Color.Orange;
+        public Color SelectFillColor = Color.LightBlue;
+        public bool FillSelectBand = false;
+        		
 		#region UpdateMatrices
 		readonly Matrix			transformation = new Matrix();
 		readonly Matrix			inverse_transformation = new Matrix();
@@ -959,8 +962,15 @@ namespace Graph
 			if (command == CommandMode.MarqueSelection)
 			{
 				var marque_rectangle = GetMarqueRectangle();
-				e.Graphics.FillRectangle(SystemBrushes.ActiveCaption, marque_rectangle);
-				e.Graphics.DrawRectangle(Pens.DarkGray, marque_rectangle.X, marque_rectangle.Y, marque_rectangle.Width, marque_rectangle.Height);
+                //e.Graphics.FillRectangle(SystemBrushes.ActiveCaption, marque_rectangle);
+                if(FillSelectBand)
+                {
+                    SolidBrush fillBrush = new SolidBrush(SelectFillColor);
+                    e.Graphics.FillRectangle(fillBrush, marque_rectangle);
+                }
+                //e.Graphics.DrawRectangle(Pens.DarkGray, marque_rectangle.X, marque_rectangle.Y, marque_rectangle.Width, marque_rectangle.Height);
+                Pen bandPen = new Pen(SelectBandColor);
+                e.Graphics.DrawRectangle(bandPen, marque_rectangle.X, marque_rectangle.Y, marque_rectangle.Width, marque_rectangle.Height);
 			}
 
 			GraphRenderer.PerformLayout(e.Graphics, graphNodes);

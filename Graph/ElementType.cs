@@ -34,6 +34,7 @@ namespace Graph
 		InputConnector,
 		OutputConnector,
 		Connection,
-		NodeSelection
+		NodeSelection,
+        ItemPart
 	}
 }

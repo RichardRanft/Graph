@@ -93,6 +93,10 @@ namespace GraphNodes
             node.AddItem(new NodeLabelItem("Entry 3", NodeIOMode.Input) { Tag = TagType.TEXTBOX });
             node.AddItem(new NodeTextBoxItem("TEXTTEXT", NodeIOMode.Output) { Tag = TagType.TEXTBOX });
             node.AddItem(new NodeDropDownItem(new string[] { "1", "2", "3", "4" }, 0, NodeIOMode.Output) { Tag = TagType.TEXTBOX });
+            var compItem = new NodeCompositeItem(NodeIOMode.InOut) { Tag = TagType.COMPOSITE };
+            var txtPart = new ItemTextBoxPart("Test text");
+            compItem.AddPart(txtPart);
+            node.AddItem(compItem);
 			this.DoDragDrop(node, DragDropEffects.Copy);
 		}
 
@@ -137,7 +141,20 @@ namespace GraphNodes
 			this.DoDragDrop(colorNode, DragDropEffects.Copy);
 		}
 
-		private void OnShowLabelsChanged(object sender, EventArgs e)
+        private void CompNode_MouseDown(object sender, MouseEventArgs e)
+        {
+            var compNode = new Node("Composite");
+            compNode.Location = new Point(300, 150);
+            var compItem = new NodeCompositeItem(NodeIOMode.Output) { Tag = TagType.COMPOSITE };
+            var compTxtPart = new ItemTextBoxPart("Test text");
+            compItem.AddPart(compTxtPart);
+            var compTxtPart2 = new ItemTextBoxPart("Test 2 text with really long text");
+            compItem.AddPart(compTxtPart2);
+            compNode.AddItem(compItem);
+            this.DoDragDrop(compNode, DragDropEffects.Copy);
+        }
+
+        private void OnShowLabelsChanged(object sender, EventArgs e)
 		{
 			graphControl.ShowLabels = showLabelsCheckBox.Checked;
 		}
@@ -154,6 +171,7 @@ namespace GraphNodes
         public static SliderClass SLIDER = new SliderClass();
         public static TextBoxClass TEXTBOX = new TextBoxClass();
         public static NodeTitleClass NODETITLE = new NodeTitleClass();
+        public static CompositeClass COMPOSITE = new CompositeClass();
     }
 
     public class CheckboxClass : object { }
@@ -165,4 +183,5 @@ namespace GraphNodes
     public class SliderClass : object { }
     public class TextBoxClass : object { }
     public class NodeTitleClass : object { }
+    public class CompositeClass : Object { }
 }

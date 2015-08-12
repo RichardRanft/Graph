@@ -38,6 +38,7 @@
             this.nodeMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.testMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.graphControl = new Graph.GraphControl();
+            this.CompNode = new System.Windows.Forms.Label();
             this.nodeMenu.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -127,12 +128,23 @@
             this.graphControl.TabIndex = 0;
             this.graphControl.Text = "graphControl";
             // 
+            // CompNode
+            // 
+            this.CompNode.AutoSize = true;
+            this.CompNode.Location = new System.Drawing.Point(12, 103);
+            this.CompNode.Name = "CompNode";
+            this.CompNode.Size = new System.Drawing.Size(82, 13);
+            this.CompNode.TabIndex = 6;
+            this.CompNode.Text = "composite node";
+            this.CompNode.MouseDown += new System.Windows.Forms.MouseEventHandler(this.CompNode_MouseDown);
+            // 
             // ExampleForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(784, 461);
+            this.Controls.Add(this.CompNode);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
@@ -159,6 +171,7 @@
 		private System.Windows.Forms.Label label4;
 		private System.Windows.Forms.ContextMenuStrip nodeMenu;
 		private System.Windows.Forms.ToolStripMenuItem testMenuItem;
+        private System.Windows.Forms.Label CompNode;
 	}
 }
 
