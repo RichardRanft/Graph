@@ -238,7 +238,12 @@ namespace Graph
 					var item = element as NodeItem;
 					item.state = SetFlag(item.state, flag, value);
 					break;
-			}
+
+                case ElementType.ItemPart:
+                    var part = element as ItemPart;
+                    part.state = SetFlag(part.state, flag, value);
+                    break;
+            }
 		}
 
 		void SetFlag(IElement element, RenderState flag, bool value, bool setConnections)
@@ -1466,7 +1471,14 @@ namespace Graph
 								snappedLocation = lastLocation = currentLocation;
 								break;
 							}
-							case ElementType.Connection:		// start dragging end of connection to new input connector
+                            case ElementType.ItemPart:			// drag in node-item
+                            {
+                                var itemPart = DragElement as ItemPart;
+                                needRedraw = itemPart.OnDrag(transformed_location);
+                                snappedLocation = lastLocation = currentLocation;
+                                break;
+                            }
+                            case ElementType.Connection:		// start dragging end of connection to new input connector
 							{
 								BringElementToFront(DragElement);
 								var connection			= DragElement as NodeConnection;
@@ -1697,7 +1709,10 @@ namespace Graph
 				case ElementType.Connection:		return null;
 				case ElementType.InputConnector:	return ((NodeInputConnector)element).Node;
 				case ElementType.OutputConnector:	return ((NodeInputConnector)element).Node;
-				case ElementType.NodeItem:			return ((NodeItem)element).Node;
+                case ElementType.ItemPart:
+                    ItemPart part = (ItemPart)element;
+                    return part.Item.Node;
+                case ElementType.NodeItem: return ((NodeItem)element).Node;
 				case ElementType.Node:				return (Node)element;
 			}
 		}
@@ -1797,6 +1812,7 @@ namespace Graph
 						default:
 						case ElementType.NodeSelection:
 						case ElementType.Connection:
+                        case ElementType.ItemPart:
 						case ElementType.NodeItem:
 						case ElementType.Node:
 						{
@@ -1962,7 +1978,21 @@ namespace Graph
 						}
 						break;
 					}
-				}
+                    case ElementType.ItemPart:
+                    {
+                        if (ModifierKeys != Keys.None)
+                            return;
+
+                        var part = element as ItemPart;
+                        if (part.OnClick())
+                        {
+                            ignoreDoubleClick = true; // to avoid double-click from firing
+                            this.Refresh();
+                            return;
+                        }
+                        break;
+                    }
+                }
 			}
 			finally
 			{
