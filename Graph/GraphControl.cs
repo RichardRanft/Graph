@@ -31,6 +31,7 @@ using System.Windows.Forms;
 using System.Drawing.Drawing2D;
 using System.Drawing.Text;
 using Graph.Compatibility;
+using Graph.Items;
 
 namespace Graph
 {
@@ -187,8 +188,7 @@ namespace Graph
 		}
 		#endregion
 
-
-		#region SetFlag
+        #region SetFlag
 		RenderState SetFlag(RenderState original, RenderState flag, bool value)
 		{
 			if (value)
@@ -196,6 +196,7 @@ namespace Graph
 			else
 				return original & ~flag;
 		}
+
 		void SetFlag(IElement element, RenderState flag, bool value)
 		{
 			if (element == null)
@@ -239,6 +240,7 @@ namespace Graph
 					break;
 			}
 		}
+
 		void SetFlag(IElement element, RenderState flag, bool value, bool setConnections)
 		{
 			if (element == null)
@@ -291,7 +293,14 @@ namespace Graph
 					item.state = SetFlag(item.state, flag, value);
 					SetFlag(item.Node, flag, value, setConnections);
 					break;
-			}
+
+                case ElementType.ItemPart:
+                    var part = element as ItemPart;
+                    part.state = SetFlag(part.state, flag, value);
+                    SetFlag(part.Item, flag, value);
+                    SetFlag(part.Item.Node, flag, value, setConnections);
+                    break;
+            }
 		}
 		#endregion
 
@@ -349,7 +358,11 @@ namespace Graph
 					var connector = element as NodeConnector;
 					BringElementToFront(connector.Node);
 					break;
-				case ElementType.NodeItem:
+                case ElementType.ItemPart:
+                    var part = element as ItemPart;
+                    BringElementToFront(part.Item);
+                    break;
+                case ElementType.NodeItem:
 					var item = element as NodeItem;
 					BringElementToFront(item.Node);
 					break;
@@ -384,7 +397,10 @@ namespace Graph
 				case ElementType.NodeItem:
 					var focusItem = FocusElement as NodeItem;
 					return (focusItem.Node == element);
-				case ElementType.InputConnector:
+                case ElementType.ItemPart:
+                    var focusPart = FocusElement as ItemPart;
+                    return (focusPart.Item == element);
+                case ElementType.InputConnector:
 				case ElementType.OutputConnector:
 					var focusConnector = FocusElement as NodeConnector;
 					return (focusConnector.Node == element);
@@ -404,7 +420,6 @@ namespace Graph
 			}
 		}
 		#endregion
-
 
 		#region ShowLabels
 		bool internalShowLabels = false;
@@ -440,14 +455,12 @@ namespace Graph
 		[Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
 		public ICompatibilityStrategy CompatibilityStrategy { get; set; }
 		#endregion
-
-
+        
 		#region Nodes
 		readonly List<Node> graphNodes = new List<Node>();
 		[Browsable(false), EditorBrowsable(EditorBrowsableState.Never)]
 		public IEnumerable<Node> Nodes { get { return graphNodes; } }
 		#endregion
-
 
 		enum CommandMode
 		{
@@ -456,7 +469,6 @@ namespace Graph
 			ScaleView,
 			Edit
 		}
-
 
 		IElement				internalDragOverElement;
 		bool					mouseMoved		= false;
@@ -500,8 +512,6 @@ namespace Graph
 			inverse_transformation.Translate(-translation.X, -translation.Y);
 		}
 		#endregion
-
-
 
 		#region AddNode
 		public bool AddNode(Node node)
@@ -628,6 +638,25 @@ namespace Graph
 				this.Invalidate();
 			return modified;
 		}
+
+        public void RemoveNodes()
+        {
+            if (FocusElement == null)
+                return;
+
+            switch (FocusElement.ElementType)
+            {
+                case ElementType.Node: RemoveNode(FocusElement as Node); break;
+                case ElementType.Connection: Disconnect(FocusElement as NodeConnection); break;
+                case ElementType.NodeSelection:
+                    {
+                        var selection = FocusElement as NodeSelection;
+                        foreach (var node in selection.Nodes)
+                            RemoveNode(node);
+                        break;
+                    }
+            }
+        }
 		#endregion
 
 		#region Connect
@@ -731,7 +760,6 @@ namespace Graph
 			return modified;
 		}
 		#endregion
-
 
 		#region FindNodeItemAt
 		static NodeItem FindNodeItemAt(Node node, PointF location)
@@ -1051,9 +1079,7 @@ namespace Graph
 			}
 		}
 		#endregion
-
-
-
+        
 		#region OnMouseWheel
 		protected override void OnMouseWheel(MouseEventArgs e)
 		{
@@ -1291,9 +1317,7 @@ namespace Graph
 
 			var deltaX = (lastLocation.X - currentLocation.X) / zoom;
 			var deltaY = (lastLocation.Y - currentLocation.Y) / zoom;
-
-			
-
+            
 			bool needRedraw = false;
 			switch (command)
 			{
@@ -1481,7 +1505,17 @@ namespace Graph
 							element = null;
 						break;
 
-					case ElementType.NodeItem:
+                    case ElementType.ItemPart:
+                        {
+                            var part = element as ItemPart;
+                            if (DragElement != null)
+                            {
+                                element = part.Item;
+                                goto case ElementType.NodeItem;
+                            }
+                            break;
+                        }
+                    case ElementType.NodeItem:
 					{	
 						var item = element as NodeItem;
 						if (DragElement != null)
@@ -1668,9 +1702,7 @@ namespace Graph
 			}
 		}
 		#endregion
-
-
-
+        
 		#region OnMouseUp
 		protected override void OnMouseUp(MouseEventArgs e)
 		{
@@ -1839,7 +1871,16 @@ namespace Graph
 				case ElementType.Connection:
 					((NodeConnection)element).DoDoubleClick();
 					break;
-				case ElementType.NodeItem:
+                case ElementType.ItemPart:
+                    var part = element as ItemPart;
+                    if (part.OnDoubleClick())
+                    {
+                        this.Refresh();
+                        return;
+                    }
+                    element = part.Item;
+                    goto case ElementType.NodeItem;
+                case ElementType.NodeItem:
 					var item = element as NodeItem;
 					if (item.OnDoubleClick())
 					{
@@ -1983,7 +2024,6 @@ namespace Graph
 			}
 		}
 		#endregion
-
 
 		#region OnDragEnter
 		Node dragNode = null;

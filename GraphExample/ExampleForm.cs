@@ -143,7 +143,7 @@ namespace GraphNodes
 
         private void CompNode_MouseDown(object sender, MouseEventArgs e)
         {
-            var compNode = new Node("Composite");
+            var compNode = new Node("Composite Node");
             compNode.Location = new Point(300, 150);
             var compItem = new NodeCompositeItem(NodeIOMode.Output) { Tag = TagType.COMPOSITE };
             var compTxtPart = new ItemTextBoxPart("Test text");
