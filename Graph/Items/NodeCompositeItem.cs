@@ -65,6 +65,11 @@ namespace Graph.Items
             itemParts.Remove(part);
         }
 
+        public List<ItemPart> Parts
+        {
+            get { return itemParts; }
+        }
+
         public override SizeF Measure(Graphics graphics)
 		{
             int partsHeight = 1;
