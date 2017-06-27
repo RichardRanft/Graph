@@ -1,0 +1,31 @@
+﻿<?xml version="1.0"?>
+<package>
+    <metadata>
+        <id>Graph</id>
+        <version>1.0.0.17</version>
+        <title>Graph</title>
+        <authors>Richard Ranft</authors>
+        <owners></owners>
+        <description>A node graph editor library</description>
+        <releaseNotes>1.0.0.17</releaseNotes>
+        <summary>An assembly for drawing and managing node graphs.</summary>
+        <language>en-US</language>
+        <iconUrl>http://scmweb03.engscm.ad.agi/PerforceRegistration/favicon.ico</iconUrl>
+        <copyright>Copyright © Roostertail Games 2016</copyright>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <dependencies>
+            <dependency id="log4net" version="[2.0.3]" />
+        </dependencies>
+        <frameworkAssemblies>
+            <frameworkAssembly assemblyName="System" targetFramework="net40-Client" />
+            <frameworkAssembly assemblyName="System.Core" targetFramework="net40-Client" />
+        </frameworkAssemblies>
+        <tags>Roostertail Games Node Graph Library</tags>
+		<references>
+			<reference file="Graph.dll" />
+		</references>
+    </metadata>
+    <files>
+        <file src="\bin\Graph.dll" target="lib/net40-Client/" />
+    </files>
+</package>
