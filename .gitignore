@@ -9,3 +9,7 @@
 *.vshost.exe
 *.vshost.exe.manifest
 *.csproj.user
+*.nupkg
+.nuget/
+GraphExample/bin/
+packages/
