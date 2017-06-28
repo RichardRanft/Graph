@@ -4,28 +4,21 @@
         <id>Graph</id>
         <version>1.0.0.17</version>
         <title>Graph</title>
-        <authors>Richard Ranft</authors>
+        <authors>SRES</authors>
         <owners></owners>
-        <description>A node graph editor library</description>
-        <releaseNotes>1.0.0.17</releaseNotes>
-        <summary>An assembly for drawing and managing node graphs.</summary>
+        <description>A basic module for managing node-based graphs</description>
+        <releaseNotes>1.0.0.17 Released 5 Oct 2016 - Adding a multiline property to the NodeTextBoxItem and ItemTextBoxPart objects.</releaseNotes>
+        <summary>A basic module for managing node-based graphs</summary>
         <language>en-US</language>
-        <iconUrl>http://scmweb03.engscm.ad.agi/PerforceRegistration/favicon.ico</iconUrl>
-        <copyright>Copyright © Roostertail Games 2016</copyright>
+        <projectUrl>https://github.com/RichardRanft/Graph</projectUrl>
         <requireLicenseAcceptance>false</requireLicenseAcceptance>
-        <dependencies>
-            <dependency id="log4net" version="[2.0.3]" />
-        </dependencies>
         <frameworkAssemblies>
-            <frameworkAssembly assemblyName="System" targetFramework="net40-Client" />
-            <frameworkAssembly assemblyName="System.Core" targetFramework="net40-Client" />
+            <frameworkAssembly assemblyName="System" targetFramework="net45" />
+            <frameworkAssembly assemblyName="System.Core" targetFramework="net45" />
         </frameworkAssemblies>
-        <tags>Roostertail Games Node Graph Library</tags>
-		<references>
-			<reference file="Graph.dll" />
-		</references>
+        <tags>Graph</tags>
     </metadata>
     <files>
-        <file src="\bin\Graph.dll" target="lib/net40-Client/" />
+        <file src="\bin\Graph.dll" target="lib/net45/" />
     </files>
 </package>

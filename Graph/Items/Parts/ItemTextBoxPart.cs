@@ -12,9 +12,12 @@ namespace Graph.Items
     {
 		public event EventHandler<AcceptNodeTextChangedEventArgs> TextChanged;
 
-        public ItemTextBoxPart(string text) :
+        public bool Multiline { get; set; }
+
+        public ItemTextBoxPart(string text, bool multi = false) :
             base()
         {
+            this.Multiline = multi;
             this.Text = text;
         }
 
@@ -47,7 +50,8 @@ namespace Graph.Items
 		{
 			base.OnDoubleClick();
 			var form = new TextEditForm();
-			form.Text = Name ?? "Edit text";
+            form.Multiline = Multiline;
+            form.Text = Name ?? "Edit text";
 			form.InputText = Text;
 			var result = form.ShowDialog();
 			if (result == DialogResult.OK)

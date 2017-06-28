@@ -145,14 +145,25 @@ namespace GraphNodes
         {
             var compNode = new Node("Composite Node");
             compNode.Location = new Point(300, 150);
+
+            var ddItem = new NodeDropDownItem(new String[] { "First", "Second" }, 0, NodeIOMode.Output);
+            compNode.AddItem(ddItem);
+            
             var compItem = new NodeCompositeItem(NodeIOMode.Output) { Tag = TagType.COMPOSITE };
-            var compTxtPart = new ItemTextBoxPart("Test text");
+            
+            var compTxtPart = new ItemTextBoxPart("Test text", true);
+            compTxtPart.Multiline = true;
             compItem.AddPart(compTxtPart);
             var compTxtPart2 = new ItemTextBoxPart("Test 2 text with really long text");
             compItem.AddPart(compTxtPart2);
+            var ddPart = new ItemDropDownPart(new String[] { "First", "Second" }, 0, NodeIOMode.None);
+            compItem.AddPart(ddPart); // fix dropdown on part
+
             compNode.AddItem(compItem);
             this.DoDragDrop(compNode, DragDropEffects.Copy);
         }
+
+
 
         private void OnShowLabelsChanged(object sender, EventArgs e)
 		{
