@@ -9,3 +9,8 @@
 *.vshost.exe
 *.vshost.exe.manifest
 *.csproj.user
+*.config
+*.config
+*.config
+*.config
+*.nupkg

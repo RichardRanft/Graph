@@ -30,81 +30,76 @@ using System.ComponentModel;
 
 namespace Graph.Items
 {
-	public sealed class AcceptNodeTextChangedEventArgs : CancelEventArgs
+	public sealed class ItemDropDownPart : ItemPart
 	{
-		public AcceptNodeTextChangedEventArgs(string old_text, string new_text) { PreviousText = old_text; Text = new_text; }
-		public AcceptNodeTextChangedEventArgs(string old_text, string new_text, bool cancel) : base(cancel) { PreviousText = old_text; Text = new_text; }
-		public string			PreviousText	{ get; private set; }
-		public string			Text			{ get; set; }
-	}
+		public event EventHandler<AcceptNodeSelectionChangedEventArgs> SelectionChanged;
 
-	public sealed class NodeTextBoxItem : NodeItem
-	{
-		public event EventHandler<AcceptNodeTextChangedEventArgs> TextChanged;
-
-        public bool Multiline { get; set; }
-
-        public NodeTextBoxItem(string text, NodeIOMode mode, bool multi = false) :
-            base(mode)
+        public ItemDropDownPart(string[] items, int selectedIndex, NodeIOMode mode) :
+            base()
         {
-            this.Multiline = multi;
-            this.Text = text;
+            this.Items = items.ToArray();
+            this.SelectedIndex = selectedIndex;
         }
 
-        public NodeTextBoxItem(string text, bool multi = false) :
-			this(text, NodeIOMode.None)
+		#region SelectedIndex
+		private int internalSelectedIndex = -1;
+		public int SelectedIndex
 		{
-            this.Multiline = multi;
-			this.Text = text;
-		}
-
-		#region Text
-		string internalText = string.Empty;
-		public string Text
-		{
-			get { return internalText; }
+			get { return internalSelectedIndex; }
 			set
 			{
-				if (internalText == value)
+				if (internalSelectedIndex == value)
 					return;
-				if (TextChanged != null)
+				if (SelectionChanged != null)
 				{
-					var eventArgs = new AcceptNodeTextChangedEventArgs(internalText, value);
-					TextChanged(this, eventArgs);
+					var eventArgs = new AcceptNodeSelectionChangedEventArgs(internalSelectedIndex, value);
+					SelectionChanged(this, eventArgs);
 					if (eventArgs.Cancel)
 						return;
-					internalText = eventArgs.Text;
+					internalSelectedIndex = eventArgs.Index;
 				} else
-					internalText = value;
+					internalSelectedIndex = value;
 				TextSize = Size.Empty;
 			}
 		}
 		#endregion
 
+		#region Items
+		public string[] Items
+		{
+			get;
+			set;
+		}
+		#endregion
+
 		internal SizeF TextSize;
 
-		public override bool OnDoubleClick()
+		public override bool OnClick()
 		{
-			base.OnDoubleClick();
-			var form = new TextEditForm();
-            form.Multiline = Multiline;
-			form.Text = Name ?? "Edit text";
-			form.InputText = Text;
+			base.OnClick();
+			var form = new SelectionForm();
+			form.Text = Name ?? "Select item from list";
+			form.Items = Items;
+			form.SelectedIndex = SelectedIndex;
 			var result = form.ShowDialog();
 			if (result == DialogResult.OK)
-				Text = form.InputText;
+				SelectedIndex = form.SelectedIndex;
 			return true;
 		}
 
         public override SizeF Measure(Graphics graphics)
 		{
-			if (!string.IsNullOrWhiteSpace(this.Text))
+			var text = string.Empty;
+			if (Items != null &&
+				SelectedIndex >= 0 && SelectedIndex < Items.Length)
+				text = Items[SelectedIndex];
+			if (!string.IsNullOrWhiteSpace(text))
 			{
 				if (this.TextSize.IsEmpty)
 				{
 					var size = new Size(GraphConstants.MinimumItemWidth, GraphConstants.MinimumItemHeight);
 
-					this.TextSize = graphics.MeasureString(this.Text, SystemFonts.MenuFont, size, GraphConstants.LeftMeasureTextStringFormat);
+					this.TextSize = graphics.MeasureString(text, SystemFonts.MenuFont, size, GraphConstants.LeftMeasureTextStringFormat);
 					
 					this.TextSize.Width  = Math.Max(size.Width, this.TextSize.Width + 8);
 					this.TextSize.Height = Math.Max(size.Height, this.TextSize.Height + 2);
@@ -118,6 +113,11 @@ namespace Graph.Items
 
         public override void Render(Graphics graphics, SizeF minimumSize, PointF location)
 		{
+			var text = string.Empty;
+			if (Items != null &&
+				SelectedIndex >= 0 && SelectedIndex < Items.Length)
+				text = Items[SelectedIndex];
+
 			var size = Measure(graphics);
 			size.Width  = Math.Max(minimumSize.Width, size.Width);
 			size.Height = Math.Max(minimumSize.Height, size.Height);
@@ -130,11 +130,11 @@ namespace Graph.Items
 			if ((state & RenderState.Hover) == RenderState.Hover)
 			{
 				graphics.DrawPath(Pens.White, path);
-				graphics.DrawString(this.Text, SystemFonts.MenuFont, Brushes.Black, new RectangleF(location, size), GraphConstants.LeftTextStringFormat);
+				graphics.DrawString(text, SystemFonts.MenuFont, Brushes.Black, new RectangleF(location, size), GraphConstants.LeftTextStringFormat);
 			} else
 			{
 				graphics.DrawPath(Pens.Black, path);
-				graphics.DrawString(this.Text, SystemFonts.MenuFont, Brushes.Black, new RectangleF(location, size), GraphConstants.LeftTextStringFormat);
+				graphics.DrawString(text, SystemFonts.MenuFont, Brushes.Black, new RectangleF(location, size), GraphConstants.LeftTextStringFormat);
 			}
 		}
 	}

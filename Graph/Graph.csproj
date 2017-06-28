@@ -50,6 +50,7 @@
     <Compile Include="Items\Parts\ItemTextBoxPart.cs" />
     <Compile Include="Items\NodeCompositeItem.cs" />
     <Compile Include="Items\NodeNumericSliderItem.cs" />
+    <Compile Include="Items\Parts\ItemDropDownPart.cs" />
     <Compile Include="NodeSelection.cs" />
     <Compile Include="Items\NodeDropDownItem.cs" />
     <Compile Include="SelectionForm.cs">

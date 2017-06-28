@@ -75,7 +75,7 @@ namespace Graph
 		public RectangleF			bounds;
 		public RenderState		state			= RenderState.None;
 
-		public virtual bool			OnClick()					 { return false; }
+		public virtual bool			OnClick()       { return false; }
 		public virtual bool			OnDoubleClick()				 { return false; }
 		public virtual bool			OnStartDrag(PointF location, out PointF original_location) { original_location = Point.Empty; return false; }
 		public virtual bool			OnDrag(PointF location)		 { return false; }		

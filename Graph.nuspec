@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<package>
+    <metadata>
+        <id>Graph</id>
+        <version>1.0.0.17</version>
+        <title>Graph</title>
+        <authors>SRES</authors>
+        <owners></owners>
+        <description>A basic module for managing node-based graphs</description>
+        <releaseNotes>1.0.0.17 Released 5 Oct 2016 - Adding a multiline property to the NodeTextBoxItem and ItemTextBoxPart objects.</releaseNotes>
+        <summary>A basic module for managing node-based graphs</summary>
+        <language>en-US</language>
+        <projectUrl>https://github.com/RichardRanft/Graph</projectUrl>
+        <requireLicenseAcceptance>false</requireLicenseAcceptance>
+        <frameworkAssemblies>
+            <frameworkAssembly assemblyName="System" targetFramework="net45" />
+            <frameworkAssembly assemblyName="System.Core" targetFramework="net45" />
+        </frameworkAssemblies>
+        <tags>Graph</tags>
+    </metadata>
+    <files>
+        <file src="\bin\Graph.dll" target="lib/net45/" />
+    </files>
+</package>

@@ -11,9 +11,13 @@ namespace Graph
 {
 	public sealed partial class TextEditForm : Form
 	{
+        public bool Multiline { get; set; }
+
 		public TextEditForm()
 		{
+            this.Multiline = false;
 			InitializeComponent();
+            this.TextTextBox.Multiline = this.Multiline;
 		}
 
 		public string InputText { get { return TextTextBox.Text; } set { TextTextBox.Text = value; } }
