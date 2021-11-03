@@ -2,12 +2,12 @@
 <package>
     <metadata>
         <id>Graph</id>
-        <version>1.0.0.17</version>
+        <version>2.0.0.0</version>
         <title>Graph</title>
         <authors>SRES</authors>
         <owners></owners>
         <description>A basic module for managing node-based graphs</description>
-        <releaseNotes>1.0.0.17 Released 5 Oct 2016 - Adding a multiline property to the NodeTextBoxItem and ItemTextBoxPart objects.</releaseNotes>
+        <releaseNotes>2.0.0.0 Released 3 Oct 2021 - Retarget to .NET 4.8.</releaseNotes>
         <summary>A basic module for managing node-based graphs</summary>
         <language>en-US</language>
         <projectUrl>https://github.com/RichardRanft/Graph</projectUrl>
