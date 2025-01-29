@@ -1,17 +1,12 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using Graph;
-using System.Drawing.Drawing2D;
 using Graph.Compatibility;
 using Graph.Items;
+using System.Diagnostics;
 
-namespace GraphNodes
+namespace GraphExample
 {
 	public partial class ExampleForm : Form
 	{
@@ -104,9 +99,16 @@ namespace GraphNodes
 		{
 			var textureNode = new Node("Texture");
 			textureNode.Location = new Point(300, 150);
-            var imageItem = new NodeImageItem(Properties.Resources.example, 64, 64, NodeIOMode.Output) { Tag = TagType.IMAGE };
-			imageItem.Clicked += new EventHandler<NodeItemEventArgs>(OnImgClicked);
-			textureNode.AddItem(imageItem);
+			try
+			{
+				var imageItem = new NodeImageItem(Properties.Resources.example, 64, 64, NodeIOMode.Output) { Tag = TagType.IMAGE };
+				imageItem.Clicked += new EventHandler<NodeItemEventArgs>(OnImgClicked);
+                textureNode.AddItem(imageItem);
+            }
+            catch (Exception ex)
+			{
+				Debug.WriteLine($"Error assigning image {Properties.Resources.example.ToString()}\r\n{ex.Message}\r\n{ex.StackTrace}");
+			}
 			this.DoDragDrop(textureNode, DragDropEffects.Copy);
 		}
 

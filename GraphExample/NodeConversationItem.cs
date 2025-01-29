@@ -10,7 +10,7 @@ using Graph;
 using Graph.Items;
 using Graph.Compatibility;
 
-namespace GraphNodes
+namespace GraphExample
 {
     public class NodeConversationItem : NodeItem
     {

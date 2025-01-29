@@ -1,4 +1,4 @@
-﻿namespace GraphNodes
+﻿namespace GraphExample
 {
 	partial class ExampleForm
 	{
